@@ -3,19 +3,20 @@ import reeds_shepp as rs
 import utils
 import draw
 import math
-import random as rd
-import networkx as nx
 from math import sqrt
 import matplotlib.pyplot as plt
 import numpy as np
 from python_tsp.exact import solve_tsp_dynamic_programming
 
 
+# Functie pentru calcularea distantei dintre doua puncte
 def calcDistance(start,finish):
     dist = sqrt((start[0]-finish[0])*(start[0]-finish[0]) +
                 (start[1]-finish[1])*(start[1]-finish[1]))
     return dist
 
+
+# Algoritmul TSP
 def tsp(points):
     dist_matrix = []
     for i in range(len(points)):
@@ -23,7 +24,7 @@ def tsp(points):
         for j in range(len(points)):
             dist_matrix[i].append(calcDistance(points[i],points[j]))
 
-
+    #dist_matrix este un graf complet, cu distantele dintre puncte
     dist_matrix = np.array(dist_matrix)
     dist_matrix[:, 0] = 0
 
@@ -63,6 +64,7 @@ def main():
     pts=optimal_path
 
     PATH = []
+    # aici se adauga punctele in path, adaugand si unghiul
     for i in range(len(pts) - 1):
         dx = pts[i+1][0] - pts[i][0]
         dy = pts[i+1][1] - pts[i][1]
